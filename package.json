@@ -1,5 +1,5 @@
 {
-  "name": "practice",
+  "name": "starter",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {},
@@ -8,28 +8,27 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-filter": "^4.0.0",
-    "gulp-flatten": "^0.3.1",
     "gulp-fontmin": "^0.7.4",
     "gulp-imagemin": "^3.0.3",
     "gulp-js-minify": "0.0.3",
-    "gulp-main-bower-files": "^1.5.3",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglifyjs": "^0.6.2",
-    "gulp-watch": "^4.3.10"
+    "gulp-watch": "^4.3.10",
+    "gulp-clean-css": "latest"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Ilia Yanovoy",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polzovatel101/AH_HW2.git"
+    "url": "git+https://github.com/polzovatel101/StarterPack.git"
   },
   "bugs": {
-    "url": "https://github.com/polzovatel101/AH_HW2/issues"
+    "url": "https://github.com/polzovatel101/StarterPack/issues"
   },
-  "homepage": "https://github.com/polzovatel101/AH_HW2#readme",
-  "description": ""
+  "homepage": "https://github.com/polzovatel101/StarterPack#readme",
+  "description": "It is a StarterPack"
 }

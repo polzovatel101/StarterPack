@@ -11,28 +11,23 @@ var cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 const imagemin = require('gulp-imagemin');
-var mainBowerFiles = require('gulp-main-bower-files');
-var gulpFilter = require('gulp-filter');
-var flatten = require('gulp-flatten');
-var minifyjs = require('gulp-js-minify');
 var uglify = require('gulp-uglifyjs');
 var fontmin = require('gulp-fontmin');
 
 gulp.task('sass', function () {
-    return gulp.src('./css/*.scss')
+    return gulp.src('./frontend/css/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
         browsers: ['last 15 versions']
     }))
-        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(cleanCSS({compatibility: 'ie10'}))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('css'));
-        //.pipe(browserSync.stream());
 });
 
 gulp.task('sass:watch', function () {
-    gulp.watch('./css/**/*.scss', ['sass']);
+    gulp.watch('./public/css/*.scss', ['sass']);
 });
 
 gulp.task('browser-sync', function() {
@@ -41,45 +36,24 @@ gulp.task('browser-sync', function() {
             baseDir: "./"
         }
     });
-
     gulp.watch("app/scss/*.scss", ['sass']);
-    gulp.watch("app/*.html").on('change', browserSync.reload);
+    gulp.watch("./*.html").on('change', browserSync.reload);
 });
 
 gulp.task('image:optimization', function (){
-    gulp.src('./img/*')
+    gulp.src('./frontend/img/*')
     .pipe(imagemin())
-    .pipe(gulp.dest('images'))
-});
-
-gulp.task('main-bower-files', function() {
-    var filterJS = gulpFilter('**/*.js', { restore: true });
-    return gulp.src('./bower.json')
-        .pipe(mainBowerFiles())
-        .pipe(filterJS)
-        .pipe(gulp.dest('./min'));
-});
-
-gulp.task('flatten', function () {
-    gulp.src('bower_components/**/*.min.js')
-        .pipe(flatten())
-        .pipe(gulp.dest('build/js'));
-});
-
-gulp.task('minify-js', function(){
-    gulp.src('./js/**/script.js')
-        .pipe(minifyjs())
-        .pipe(gulp.dest('./min'));
+    .pipe(gulp.dest('./public/images'))
 });
 
 gulp.task('uglify', function() {
-    gulp.src('min/**/script.js')
+    gulp.src('./frontend/js/script.js')
         .pipe(uglify())
-        .pipe(gulp.dest('./js/min'))
+        .pipe(gulp.dest('./js/'))
 });
 
 gulp.task('font:optimize', function () {
-    return gulp.src('frontend/fonts/*.ttf')
+    return gulp.src('./frontend/fonts/*.ttf')
         .pipe(fontmin({
             text: 'It is a 3.14zdec'
         }))
@@ -88,6 +62,6 @@ gulp.task('font:optimize', function () {
 
 gulp.task('js', ['minify-js', 'uglify']);
 
-gulp.task('default', ['browser-sync', 'sass:watch', 'image:optimization', 'main-bower-files', 'flatten']);
+gulp.task('default', ['browser-sync', 'sass:watch', 'image:optimization']);
 
 
