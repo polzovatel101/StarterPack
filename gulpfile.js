@@ -1,7 +1,3 @@
-/**
- * Created by Илья Яновой on 01.10.2016.
- */
-
 'use strict';
 
 var gulp = require('gulp');
@@ -15,7 +11,7 @@ var uglify = require('gulp-uglifyjs');
 var fontmin = require('gulp-fontmin');
 
 gulp.task('sass', function () {
-    return gulp.src('./frontend/css/*.scss')
+    return gulp.src('./frontend/stylesheets/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
@@ -23,11 +19,11 @@ gulp.task('sass', function () {
     }))
         .pipe(cleanCSS({compatibility: 'ie10'}))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('css'));
+        .pipe(gulp.dest('./public/css/'));
 });
 
 gulp.task('sass:watch', function () {
-    gulp.watch('./public/css/*.scss', ['sass']);
+    gulp.watch('./frontend/stylesheets/*.scss', ['sass']);
 });
 
 gulp.task('browser-sync', function() {
@@ -36,7 +32,9 @@ gulp.task('browser-sync', function() {
             baseDir: "./"
         }
     });
-    gulp.watch("app/scss/*.scss", ['sass']);
+    gulp.watch("./frontend/stylesheets/*.scss", ['sass']);
+    gulp.watch("./frontend/js/*.js", ['js']);
+    gulp.watch("./public/js/*.js").on('change', browserSync.reload);
     gulp.watch("./*.html").on('change', browserSync.reload);
 });
 
@@ -49,7 +47,7 @@ gulp.task('image:optimization', function (){
 gulp.task('uglify', function() {
     gulp.src('./frontend/js/script.js')
         .pipe(uglify())
-        .pipe(gulp.dest('./js/'))
+        .pipe(gulp.dest('./public/js/'))
 });
 
 gulp.task('font:optimize', function () {
@@ -57,10 +55,10 @@ gulp.task('font:optimize', function () {
         .pipe(fontmin({
             text: 'It is a 3.14zdec'
         }))
-        .pipe(gulp.dest('./fonts'));
+        .pipe(gulp.dest('./public/fonts'));
 });
 
-gulp.task('js', ['minify-js', 'uglify']);
+gulp.task('js', ['uglify']);
 
 gulp.task('default', ['browser-sync', 'sass:watch', 'image:optimization']);
 
