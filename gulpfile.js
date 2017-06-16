@@ -23,7 +23,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('sass:watch', function () {
-    gulp.watch('./frontend/stylesheets/*.scss', ['sass']);
+    gulp.watch('./frontend/stylesheets/**/*.scss', ['sass']);
 });
 
 gulp.task('browser-sync', function() {
@@ -32,7 +32,7 @@ gulp.task('browser-sync', function() {
             baseDir: "./"
         }
     });
-    gulp.watch("./frontend/stylesheets/*.scss", ['sass']);
+    gulp.watch("./frontend/stylesheets/**/*.scss", ['sass']);
     gulp.watch("./frontend/js/*.js", ['js']);
     gulp.watch("./public/js/*.js").on('change', browserSync.reload);
     gulp.watch("./*.html").on('change', browserSync.reload);
@@ -60,6 +60,6 @@ gulp.task('font:optimize', function () {
 
 gulp.task('js', ['uglify']);
 
-gulp.task('default', ['browser-sync', 'sass:watch', 'image:optimization']);
+gulp.task('default', ['browser-sync', 'image:optimization']);
 
 
